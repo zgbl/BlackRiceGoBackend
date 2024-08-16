@@ -14,7 +14,7 @@
     });
   }; */
   
-//module.exports = errorHandler;
+//module.exports = errorHandle
 
 export default (err, req, res, next) => {
   console.error('Error:', err);
