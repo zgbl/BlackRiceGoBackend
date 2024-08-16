@@ -5,7 +5,8 @@ name: Node.js Package
 
 on:
   release:
-    types: [created by TXY]
+    types: []
+  workflow_dispatch: #这行启用手工触发
 
 jobs:
   build:
