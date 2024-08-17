@@ -3,10 +3,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "BlackRiceGo3 Backend",
-  "main": "server.js",
+  "main": "server3.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server3.js"
   },
   "author": "TXY",
   "license": "ISC",
@@ -30,4 +30,4 @@
 
 "scripts": {
   "postinstall": "npm rebuild bcrypt --build-from-source"
-}
+},
