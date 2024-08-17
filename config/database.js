@@ -27,11 +27,11 @@ const connectDB = async () => {
 
   console.log(process.env.MONGO_URI_PRIMARY);
 
-  if (!primaryUri || !primaryUri.startsWith('mongodb')) {
+  /*if (!primaryUri || !primaryUri.startsWith('mongodb')) {
     console.error('Invalid or missing MongoDB URI');
     throw new Error('Failed to connect to primary MongoDB');
-  }
-
+  } */
+ 
   try {
     await mongoose.connect(primaryUri);
     console.log('Connected to primary MongoDB');
