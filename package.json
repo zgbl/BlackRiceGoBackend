@@ -3,10 +3,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "BlackRiceGo3 Backend",
-  "main": "server3.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server3.js"
+    "start": "node server.js"
   },
   "author": "TXY",
   "license": "ISC",
@@ -19,7 +19,6 @@
     "express-list-endpoints": "^7.1.0",
     "express-session": "^1.18.0",
     "mongodb": "^6.8.0",
-    "mongoose": "^8.5.3",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -27,7 +26,3 @@
     "uuid": "^10.0.0"
   }
 }
-
-"scripts": {
-  "postinstall": "npm rebuild bcrypt --build-from-source"
-},
