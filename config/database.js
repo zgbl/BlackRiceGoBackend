@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 let currentDbUri;
 
 const connectDB = async () => {
-  const primaryUri = process.env.MONGO_URI_PRIMARY;
+  //const primaryUri = process.env.MONGO_URI_PRIMARY;
+  const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
   //const backupUri = process.env.MONGO_URI_BACKUP;
 
   /*try {
@@ -33,7 +34,8 @@ const connectDB = async () => {
   } */
  
   try {
-    await mongoose.connect(primaryUri);
+    //await mongoose.connect(primaryUri);
+    await mongoose.connect('mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
     console.log('Connected to primary MongoDB');
     currentDbUri = primaryUri;
 
