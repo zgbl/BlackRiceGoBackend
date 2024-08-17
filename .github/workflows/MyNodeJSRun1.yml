@@ -31,3 +31,5 @@ jobs:
 
       - name: Run the application
         run: node server3.js
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
