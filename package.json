@@ -27,3 +27,7 @@
     "uuid": "^10.0.0"
   }
 }
+
+"scripts": {
+  "postinstall": "npm rebuild bcrypt --build-from-source"
+}
