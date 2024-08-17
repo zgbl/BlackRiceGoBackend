@@ -3,10 +3,13 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "BlackRiceGo3 Backend",
-  "main": "server.js",
+  "main": "server3.js",
+  "engines": {
+    "node":"20.9.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server3.js"
+    "start": "node server3.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TXY",
   "license": "ISC",
