@@ -42,6 +42,7 @@ const connectDB = async () => {
     // 连接成功后，列出所有集合
     const db = mongoose.connection.db;
     const collections = await db.listCollections().toArray();
+    console.log('MongoDB connected successfully');
     console.log('Collections in database:', collections.map(c => c.name));
 
     // 尝试查询 Posts 集合
