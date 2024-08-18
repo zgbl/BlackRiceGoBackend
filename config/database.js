@@ -36,7 +36,7 @@ const connectDB = async () => {
   try {
     //await mongoose.connect(primaryUri);
     //await mongoose.connect('mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
-    await mongoose.connect('mongodb+srv://vercel-admin-user-66c2608b73d51b598b4befb6@admin:vercel-admin-user-66c2608b73d51b598b4befb6@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
+    await mongoose.connect('mongodb+srv://vercel-admin-user-66c2608b73d51b598b4befb6:vercel-admin-user-66c2608b73d51b598b4befb6@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
     console.log('Connected to primary MongoDB');
     //currentDbUri = primaryUri;
 
