@@ -1,8 +1,18 @@
 {
     "version": 2,
     "routes": [
-      { "src": "/(.*)", "dest": "/server3.js" }
-    ]
+      { "src": "^/forum", "dest": "/server3.js" },
+      { "src": "^/auth", "dest": "/server3.js" },
+      { "src": "^/comments", "dest": "/server3.js" },
+      { "src": "/(.*)", "dest": "/$1" }
+    ],
+    "builds": [
+      { "src": "server3.js", "use": "@vercel/node" }
+    ],
+    "env": {
+      "MONGODB_URI": "@mongodb_uri",
+      "MONGO_URI_PRIMARY": "@mongo_uri_primary",
+      "SESSION_SECRET": "@session_secret"
+    }
   }
-  
   
