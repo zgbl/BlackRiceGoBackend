@@ -4,7 +4,7 @@ let currentDbUri;
 
 const connectDB = async () => {
   //const primaryUri = process.env.MONGO_URI_PRIMARY;
-  const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
+  //const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
   //const backupUri = process.env.MONGO_URI_BACKUP;
 
   /*try {
@@ -24,9 +24,9 @@ const connectDB = async () => {
     }
   }  */
 
-  console.log('Primary MongoDB URI:', primaryUri);  //打印 Github Page 变量排错
+  //console.log('Primary MongoDB URI:', primaryUri);  //打印 Github Page 变量排错
 
-  console.log(process.env.MONGO_URI_PRIMARY);
+  //console.log(process.env.MONGO_URI_PRIMARY);
 
   /*if (!primaryUri || !primaryUri.startsWith('mongodb')) {
     console.error('Invalid or missing MongoDB URI');
@@ -38,7 +38,7 @@ const connectDB = async () => {
     //await mongoose.connect('mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
     await mongoose.connect('mongodb+srv://vercel-admin-user-66c2608b73d51b598b4befb6@admin:vercel-admin-user-66c2608b73d51b598b4befb6@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
     console.log('Connected to primary MongoDB');
-    currentDbUri = primaryUri;
+    //currentDbUri = primaryUri;
 
     // 连接成功后，列出所有集合
     const db = mongoose.connection.db;
