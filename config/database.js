@@ -4,7 +4,7 @@ let currentDbUri;
 
 const connectDB = async () => {
   //const primaryUri = process.env.MONGO_URI_PRIMARY;
-  //const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
+  const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
   //const backupUri = process.env.MONGO_URI_BACKUP;
 
   /*try {
@@ -35,10 +35,10 @@ const connectDB = async () => {
  
   try {
     //await mongoose.connect(primaryUri);
-    //await mongoose.connect('mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
-    await mongoose.connect('mongodb+srv://vercel-admin-user-66c2608b73d51b598b4befb6:vercel-admin-user-66c2608b73d51b598b4befb6@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
+    await mongoose.connect('mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
+    //await mongoose.connect('mongodb+srv://vercel-admin-user-66c2608b73d51b598b4befb6:vercel-admin-user-66c2608b73d51b598b4befb6@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority');
     console.log('Connected to primary MongoDB');
-    //currentDbUri = primaryUri;
+    currentDbUri = primaryUri;
 
     // 连接成功后，列出所有集合
     const db = mongoose.connection.db;
