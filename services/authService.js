@@ -1,6 +1,6 @@
 // services/authService.js
 import User from '../models/User.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const findUserByUsername = async (username) => {
   return await User.findOne({ username });

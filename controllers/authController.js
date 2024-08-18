@@ -1,5 +1,5 @@
 import authService from '../services/authService.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import User from '../models/User.js';
 
