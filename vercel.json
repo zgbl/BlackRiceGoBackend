@@ -3,8 +3,7 @@
     "routes": [
       { "src": "^/forum", "dest": "/server3.js" },
       { "src": "^/auth", "dest": "/server3.js" },
-      { "src": "^/comments", "dest": "/server3.js" },
-      { "src": "/(.*)", "dest": "/$1" }
+      { "src": "^/comments", "dest": "/server3.js" }
     ],
     "builds": [
       { "src": "server3.js", "use": "@vercel/node" }
