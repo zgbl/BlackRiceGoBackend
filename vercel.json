@@ -10,8 +10,7 @@
       { "src": "server3.js", "use": "@vercel/node" }
     ],
     "env": {
-      "MONGO_URI_PRIMARY": "@mongo_uri_primary",
-      "SESSION_SECRET": "@session_secret"
+
     }
   }
   
