@@ -11,10 +11,6 @@
     ],
     "env": {
 
-    },
-
-    "scripts": {
-    "postinstall": "npm rebuild bcrypt --build-from-source"
     }
 
 }
