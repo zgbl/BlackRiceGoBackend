@@ -1,47 +1,52 @@
-/*// /routes/index.js
-import authRoutes from './auth.js';
-import forumRoutes from './forumRoutes.js';
-import commentRoutes from './commentRoutes.js';
-// 导入其他路由...
-
-export default {
-  authRoutes,
-  forumRoutes,
-  commentRoutes,
-  // 导出其他路由...
-};  */
-
-
-/*
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import authRoutes from '../routes/auth.js';
 import forumRoutes from '../routes/forumRoutes.js';
 import commentRoutes from '../routes/commentRoutes.js';
-import authRoutes from '../routes/auth.js';
+import { connectDB } from '../config/database.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const app = express();
 
-const router = express.Router();
+// 中间件设置
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-router.get('/match', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'match.html'));
+// 路由设置
+app.use('/auth', authRoutes);
+app.use('/forum', forumRoutes);
+app.use('/comments', commentRoutes);
+
+// 根路由
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the API' });
 });
 
-router.use('/forum', forumRoutes);
-router.use('/comments', commentRoutes);
-router.use('/auth', authRoutes);
+// 404 处理
+app.use((req, res) => {
+  res.status(404).json({ message: 'Not Found' });
+});
 
-export { router as default, forumRoutes, commentRoutes, authRoutes };
-*/
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal Server Error' });
+});
 
-import authRoutes from '../routes/auth.js';
-import forumRoutes from '../routes/forumRoutes.js';
-import commentRoutes from '../routes/commentRoutes.js';
+// 初始化函数
+const initializeApp = async () => {
+  try {
+    await connectDB();
+    console.log('Database connected successfully');
+  } catch (error) {
+    console.error('Failed to connect to the database:', error);
+    process.exit(1);
+  }
+};
 
-// Export these routes as named exports
+// 导出处理函数
+export default async (req, res) => {
+  await initializeApp();
+  return app(req, res);
+};
+
+// 导出路由，以便在其他地方使用
 export { authRoutes, forumRoutes, commentRoutes };
-
-import app from '../serverless1.js';
-export default app;

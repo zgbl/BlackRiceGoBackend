@@ -35,6 +35,8 @@ const router = express.Router();
 }); */
 
 router.post('/login', (req, res, next) => {
+
+  console.log('Login route accessed');
   console.log('Login attempt for user:', req.body.username);
 
   req.logout((err) => {
