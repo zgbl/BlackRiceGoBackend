@@ -1,17 +1,14 @@
 {
   "type": "module",
-  "name": "backend",
+  "name": "black-rice-go-serverless2",
   "version": "1.0.0",
   "description": "BlackRiceGo3 Backend",
-  "main": "index.js",
-  "engines": {
-    "node": "20.x"
-  },
+  "main": "api/index.js",
+
   "scripts": {
     "start": "node serverless1.js",
     "dev": "node serverless1.js",
-    "vercel-build": "echo 'Build step for Vercel deployment'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "vercel-build": "echo 'Build step for Vercel deployment'"
   },
   "author": "TXY",
   "license": "ISC",
