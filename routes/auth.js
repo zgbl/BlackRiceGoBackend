@@ -7,33 +7,14 @@ import bcrypt from 'bcryptjs';
 import { login, registerUser, logout } from '../controllers/authController.js';
 
 const router = express.Router();
-//router.post('/login', authController.login);
-//router.post('/login', (req, res, next) => {
-/*router.post('/login', passport.authenticate('local'), (req, res) => {
-  passport.authenticate('local', async (err, user, info) => {
-    if (err) return next(err);
-    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
-    try {
-      await user.updateLoginInfo();
-      req.logIn(user, (err) => {
-        if (err) return next(err);
-        return res.json({ 
-          message: 'Login successful', 
-          user: { 
-            id: user._id, 
-            username: user.username,
-            lastLogin: user.lastLogin,
-            loginCount: user.loginCount
-          } 
-        });
-        //return res.json({ message: 'Login successful', user: { id: user._id, username: user.username } });
-      });
-    } catch (error) {
-      return next(error);
-    }
-  })(req, res, next);
-}); */
+router.options('/login', (req, res) => {
+  res.header('Access-Control-Allow-Origin', allowedOrigins);
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.send();
+});
+
 
 router.post('/login', (req, res, next) => {
 

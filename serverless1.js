@@ -60,7 +60,7 @@ const initializeApp = async () => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // Routes setup
+    // Routes setup 
     // 移除 /match 路由，因为不再支持
     // app.get('/match', (req, res) => {
     //   res.sendFile(path.join(__dirname, 'public', 'match.html'));
