@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "BlackRiceGo3 Backend",
   "main": "api/index.js",
-
   "scripts": {
     "start": "node serverless1.js",
     "dev": "node serverless1.js",

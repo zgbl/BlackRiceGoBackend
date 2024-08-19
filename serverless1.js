@@ -57,13 +57,19 @@ const initializeApp = async () => {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      store: MongoStore.create({ mongoUrl: getCurrentDbUri() })
+      store: MongoStore.create({ mongoUrl: getCurrentDbUri() })，
+      cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+      }
     }));
 
-    // Passport setup
-    configurePassport(passport);
+    // Passport initialization
     app.use(passport.initialize());
     app.use(passport.session());
+
+    // Configure Passport
+    configurePassport(passport);
 
     // Routes setup 
     // 移除 /match 路由，因为不再支持
