@@ -1,20 +1,3 @@
-/*
-{
-    "version": 2,
-    "routes": [
-      { "src": "^/forum", "dest": "/server3.js" },
-      { "src": "^/auth", "dest": "/server3.js" },
-      { "src": "^/comments", "dest": "/server3.js" }
-    ],
-    "builds": [
-      { "src": "server3.js", "use": "@vercel/node" }
-    ],
-    "env": {
-
-    }
-
-}  */
-
 {
     "version": 2,
     "builds": [
