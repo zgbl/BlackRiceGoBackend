@@ -29,6 +29,9 @@ const allowedOrigins = ['https://zgbl.github.io'];
 // Middleware setup
 // 移除静态文件中间件，因为我们不再使用 /public 目录
 // app.use(express.static(path.join(__dirname, 'public')));
+
+router.options('*', cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({

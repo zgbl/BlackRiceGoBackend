@@ -1,122 +1,90 @@
 import express from 'express';
-//import authController from '../controllers/authController.js';
 import passport from 'passport';
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
-import { login, registerUser, logout } from '../controllers/authController.js';
+import cors from 'cors';
 
 const router = express.Router();
 
-router.options('/login', (req, res) => {
-  res.header('Access-Control-Allow-Origin', allowedOrigins);
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.send();
-});
+const corsOptions = {
+  origin: 'https://zgbl.github.io', // or your allowed origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
 
+router.use(cors(corsOptions));
 
 router.post('/login', (req, res, next) => {
-
-  console.log('Login route accessed');
   console.log('Login attempt for user:', req.body.username);
-
-  req.logout((err) => {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
-      console.error('Error logging out:', err);
-      return next(err);
+      console.error('Authentication error:', err);
+      return res.status(500).json({ message: 'Internal server error' });
     }
-
-    passport.authenticate('local', (err, user, info) => {
-    
+    if (!user) {
+      console.log('Login failed for user:', req.body.username, 'Reason:', info.message);
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    req.logIn(user, (err) => {
       if (err) {
-        console.error('Authentication error:', err);
-        return res.status(500).json({ message: 'Internal server error' });
+        console.error('Login error:', err);
+        return res.status(500).json({ message: 'Error logging in' });
       }
-      if (!user) {
-        console.log('Login failed for user:', req.body.username);
-        console.log('Reason:', info.message); // 添加这行来查看失败原因
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
-      req.logIn(user, (err) => {
-        if (err) {
-          console.error('Login error:', err);
-          return res.status(500).json({ message: 'Error logging in' });
+      console.log('Login successful for user:', user.username);
+      return res.json({
+        message: 'Login successful',
+        user: {
+          id: user._id,
+          username: user.username
         }
-        console.log('Login successful for user:', user.username);
-        return res.json({
-          message: 'Login successful',
-          user: {
-            id: user._id,
-            username: user.username
-          },
-          //redirectTo: '/forum'  //server不要redirect
-        });
       });
-    })(req, res, next);
-
-  });
-  
-
+    });
+  })(req, res, next);
 });
 
+router.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).json({ message: 'Error logging out' });
+    }
+    res.json({ message: 'Logged out successfully' });
+  });
+});
 
-//router.get('/logout', authController.logout);
-router.get('/logout', logout);
-
-//router.post('/register', authController.register);
 router.post('/register', async (req, res) => {
   try {
-      const { username, email, password } = req.body;
-
-      // Check if user already exists
-      let user = await User.findOne({ $or: [{ email }, { username }] });
-      if (user) {
-          return res.status(400).json({ message: 'User already exists' });
+    const { username, email, password } = req.body;
+    let user = await User.findOne({ $or: [{ email }, { username }] });
+    if (user) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+    user = new User({ username, email, password });
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+    await user.save();
+    req.login(user, (err) => {
+      if (err) {
+        console.error('Auto-login after registration failed:', err);
+        return res.status(500).json({ message: 'Registration successful, but auto-login failed' });
       }
-
-      // Create new user
-      user = new User({
-          username,
-          email,
-          password
+      res.status(201).json({ 
+        message: 'User registered and logged in successfully', 
+        user: { 
+          id: user._id, 
+          username: user.username,
+          email: user.email,
+          createdAt: user.createdAt,
+          lastLogin: user.lastLogin,
+          loginCount: user.loginCount
+        } 
       });
-
-      // Hash password
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-      //user.password = password  //临时跳过哈希，明文存储密码，作为测试
-      console.log("DB 将存储的user.password is:", user.password);
-      console.log("比较是不是一致？输入的passowrd is:", password);
-
-      // Save user to database
-      await user.save();
-
-      // 手动登录用户
-      req.login(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        //res.status(201).json({ message: 'User registered and logged in successfully', user: { id: user._id, username: user.username } });
-        res.status(201).json({ 
-          message: 'User registered and logged in successfully', 
-          user: { 
-            id: user._id, 
-            username: user.username,
-            email: user.email,
-            createdAt: user.createdAt,
-            lastLogin: user.lastLogin,
-            loginCount: user.loginCount
-          } 
-        });
-      });
-
-      //res.status(201).json({ message: 'User registered successfully' });
+    });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error' });
-      next(error);
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-//module.exports = router;
 export default router;
