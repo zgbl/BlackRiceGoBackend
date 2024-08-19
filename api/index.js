@@ -36,9 +36,9 @@ router.use('/auth', authRoutes);
 export { router as default, forumRoutes, commentRoutes, authRoutes };
 */
 
-import authRoutes from './auth.js';
-import forumRoutes from './forumRoutes.js';
-import commentRoutes from './commentRoutes.js';
+import authRoutes from '../routes/auth.js';
+import forumRoutes from '../routes/forumRoutes.js';
+import commentRoutes from '../routes/commentRoutes.js';
 
 // Export these routes as named exports
 export { authRoutes, forumRoutes, commentRoutes };
