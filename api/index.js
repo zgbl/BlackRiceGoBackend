@@ -11,12 +11,14 @@ export default {
   // 导出其他路由...
 };  */
 
+
+/*
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import forumRoutes from './forumRoutes.js';
-import commentRoutes from './commentRoutes.js';
-import authRoutes from './auth.js';
+import forumRoutes from '../routes/forumRoutes.js';
+import commentRoutes from '../routes/commentRoutes.js';
+import authRoutes from '../routes/auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,3 +34,7 @@ router.use('/comments', commentRoutes);
 router.use('/auth', authRoutes);
 
 export { router as default, forumRoutes, commentRoutes, authRoutes };
+*/
+
+import app from '../serverless1.js';
+export default app;
