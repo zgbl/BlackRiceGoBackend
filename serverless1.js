@@ -90,7 +90,14 @@ const initializeApp = async () => {
 };
 
 // 不要立即导出 app，而是导出一个函数
-export default async function() {
+/*export default async function() {
   await initializeApp();
   return app;
+} */
+export default async (req, res) => {
+if (!app.initialized) {
+    await initializeApp();
+    app.initialized = true;
 }
+return app(req, res);
+};
