@@ -20,9 +20,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:3000', 'http://localhost:8090', 'http://www.blackrice.pro','https://zgbl.github.io','http://192.168.0.152:8090'];
+const allowedOrigins = ['https://zgbl.github.io'];
+
+//const allowedOrigins = process.env.ALLOWED_ORIGINS
+//  ? process.env.ALLOWED_ORIGINS.split(',')
+//  : [ 'http://www.blackrice.pro','https://zgbl.github.io'];
 
 // Middleware setup
 // 移除静态文件中间件，因为我们不再使用 /public 目录
