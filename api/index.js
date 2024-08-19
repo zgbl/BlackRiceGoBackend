@@ -36,5 +36,12 @@ router.use('/auth', authRoutes);
 export { router as default, forumRoutes, commentRoutes, authRoutes };
 */
 
+import authRoutes from './auth.js';
+import forumRoutes from './forumRoutes.js';
+import commentRoutes from './commentRoutes.js';
+
+// Export these routes as named exports
+export { authRoutes, forumRoutes, commentRoutes };
+
 import app from '../serverless1.js';
 export default app;
