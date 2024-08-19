@@ -1,6 +1,7 @@
 import express from 'express';
 //import authController from '../controllers/authController.js';
 import passport from 'passport';
+import cors from 'cors';
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { login, registerUser, logout } from '../controllers/authController.js';

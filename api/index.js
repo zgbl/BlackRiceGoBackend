@@ -3,6 +3,7 @@ import authRoutes from '../routes/auth.js';
 import forumRoutes from '../routes/forumRoutes.js';
 import commentRoutes from '../routes/commentRoutes.js';
 import { connectDB } from '../config/database.js';
+import cors from 'cors';
 
 const app = express();
 

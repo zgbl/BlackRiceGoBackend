@@ -9,6 +9,7 @@ router.post('/:postId', addComment);
 module.exports = router; */
 
 import express from 'express';
+import cors from 'cors';
 import { getComments, addComment } from '../controllers/commentController.js';
 
 const router = express.Router();

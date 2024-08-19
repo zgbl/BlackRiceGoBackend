@@ -23,6 +23,7 @@ export default mongoose.model('Post', PostSchema, 'Posts');
 */
 
 import express from 'express';
+import cors from 'cors';
 import { getPosts, createPost, getPost } from '../controllers/forumController.js';
 import upload from '../middleware/upload.js';
 
