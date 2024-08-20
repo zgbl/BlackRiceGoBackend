@@ -55,6 +55,8 @@ router.get('/logout', (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
+    console.log('req object at register route:', req); // Add this line to inspect `req`
+    console.log('req.login function:', req.login); // This should print the `req.login` function or `undefined`
     const { username, email, password } = req.body;
     let user = await User.findOne({ $or: [{ email }, { username }] });
     if (user) {
