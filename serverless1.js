@@ -103,8 +103,12 @@ export default async (req, res) => {
   //configurePassportOnce();
   //return app(req, res);
   passport.initialize()(req, res, () => {
+    console.log('Passport initialized');
     passport.session()(req, res, () => {
+      console.log('Passport session initialized');
       configurePassportOnce();
+      console.log('Passport once configured');
+      console.log('req is:', req);
       return app(req, res);
     });
   });
