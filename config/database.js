@@ -5,33 +5,6 @@ let currentDbUri;
 const connectDB = async () => {
   //const primaryUri = process.env.MONGO_URI_PRIMARY;
   const primaryUri = 'mongodb+srv://flyer:Flyer123@blackricemongo.t7k7zg3.mongodb.net/blackrice?retryWrites=true&w=majority';
-  //const backupUri = process.env.MONGO_URI_BACKUP;
-
-  /*try {
-    await mongoose.connect(primaryUri);
-    console.log('Connected to primary MongoDB');
-    currentDbUri = primaryUri;
-  } catch (error) {
-    console.error('Error connecting to primary MongoDB:', error.message);
-    console.log('Attempting to connect to backup MongoDB...');
-    try {
-      await mongoose.connect(backupUri);
-      console.log('Connected to backup MongoDB');
-      currentDbUri = backupUri;
-    } catch (backupError) {
-      console.error('Error connecting to backup MongoDB:', backupError.message);
-      throw new Error('Failed to connect to both primary and backup databases');
-    }
-  }  */
-
-  //console.log('Primary MongoDB URI:', primaryUri);  //打印 Github Page 变量排错
-
-  //console.log(process.env.MONGO_URI_PRIMARY);
-
-  /*if (!primaryUri || !primaryUri.startsWith('mongodb')) {
-    console.error('Invalid or missing MongoDB URI');
-    throw new Error('Failed to connect to primary MongoDB');
-  } */
  
   try {
     //await mongoose.connect(primaryUri);

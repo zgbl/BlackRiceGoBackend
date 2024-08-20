@@ -1,38 +1,3 @@
-//const mongoose = require('mongoose');
-
-/*
-const PostSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  sgfContent: String,
-  createdAt: { type: Date, default: Date.now }
-});
-
-module.exports = mongoose.model('Post', PostSchema);
-*/
-
-/*
-const PostSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  sgfContent: String,
-  createdAt: { type: Date, default: Date.now }
-}, { collection: 'Posts' });
-
-module.exports = mongoose.model('Post', PostSchema, 'Posts');
-*/
-/*import mongoose from 'mongoose';
-
-const PostSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  sgfContent: String,
-  createdAt: { type: Date, default: Date.now }
-}, { collection: 'Posts' });
-
-export default mongoose.model('Post', PostSchema, 'Posts');
-*/
-
 import mongoose from 'mongoose';
 
 const PostSchema = new mongoose.Schema({

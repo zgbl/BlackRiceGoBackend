@@ -93,6 +93,10 @@ export default async (req, res) => {
     await initializeApp();
     app.initialized = true;
   }
+  // 每次请求都重新初始化 Passport
+  passport.initialize()(req, res, () => {});
+  passport.session()(req, res, () => {});
+  
   configurePassportOnce();
   return app(req, res);
 };
