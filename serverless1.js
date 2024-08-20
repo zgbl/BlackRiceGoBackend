@@ -39,6 +39,9 @@ app.use(cors({
   credentials: true
 }));
 
+// 处理OPTIONS预检请求
+app.options('*', cors());
+
 const configurePassportOnce = () => {
   if (!isPassportConfigured) {
     console.log('Configuring Passport');
@@ -96,7 +99,7 @@ export default async (req, res) => {
   // 每次请求都重新初始化 Passport
   passport.initialize()(req, res, () => {});
   passport.session()(req, res, () => {});
-  
+
   configurePassportOnce();
   return app(req, res);
 };
