@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -22,12 +23,22 @@ const app = express();
 
 const allowedOrigins = ['https://zgbl.github.io'];
 
+//const allowedOrigins = process.env.ALLOWED_ORIGINS
+//  ? process.env.ALLOWED_ORIGINS.split(',')
+//  : [ 'http://www.blackrice.pro','https://zgbl.github.io'];
+
+// Middleware setup
+// 移除静态文件中间件，因为我们不再使用 /public 目录
+// app.use(express.static(path.join(__dirname, 'public')));
+
+router.options('*', cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
@@ -42,26 +53,36 @@ const initializeApp = async () => {
     await connectDB();
     console.log('Database connected successfully');
 
+    // Session setup
     app.use(session({
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      store: MongoStore.create({ mongoUrl: getCurrentDbUri() }),
+      store: MongoStore.create({ mongoUrl: getCurrentDbUri() })，
       cookie: {
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 // 24 hours
       }
     }));
 
+    // Passport initialization
     app.use(passport.initialize());
     app.use(passport.session());
 
+    // Configure Passport
     configurePassport(passport);
+
+    // Routes setup 
+    // 移除 /match 路由，因为不再支持
+    // app.get('/match', (req, res) => {
+    //   res.sendFile(path.join(__dirname, 'public', 'match.html'));
+    // });
 
     app.use('/forum', forumRoutes);
     app.use('/comments', commentRoutes);
     app.use('/auth', authRoutes);
 
+    // Root route
     app.get('/', (req, res) => {
       res.status(200).json({ message: 'Welcome to the API' });
     });
@@ -69,6 +90,8 @@ const initializeApp = async () => {
     app.use(errorHandler);
 
     console.log('App initialized successfully');
+    
+    // 打印所有路由，方便调试
     console.log(listEndpoints(app));
   } catch (err) {
     console.error('Failed to initialize app:', err);
@@ -76,10 +99,15 @@ const initializeApp = async () => {
   }
 };
 
+// 不要立即导出 app，而是导出一个函数
+/*export default async function() {
+  await initializeApp();
+  return app;
+} */
 export default async (req, res) => {
-  if (!app.initialized) {
+if (!app.initialized) {
     await initializeApp();
     app.initialized = true;
-  }
-  return app(req, res);
+}
+return app(req, res);
 };
