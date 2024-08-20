@@ -31,7 +31,11 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // 验证密码的方法
-UserSchema.methods.verifyPassword = async function(candidatePassword) {
+//UserSchema.methods.verifyPassword = async function(candidatePassword) {
+//  return bcrypt.compare(candidatePassword, this.password);
+//};
+
+UserSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
