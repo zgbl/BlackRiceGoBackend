@@ -45,6 +45,7 @@ const initializeApp = async () => {
 // 导出处理函数
 export default async (req, res) => {
   await initializeApp();
+  console.log('App initialized successfully, from index.js ling 48');
   return app(req, res);
 };
 

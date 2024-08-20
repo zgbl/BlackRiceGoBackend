@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
 export default function(passport) {
-  console.log('Configuring Passport');
+  console.log('Configuring Passport, 我想确保看到somethign, passport.js line 8');
   
   passport.use('local', localStrategy);
 
