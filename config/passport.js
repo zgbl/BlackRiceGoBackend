@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
 export default function(passport) {
+  console.log('Inside Passport configuration function');
   passport.use(new LocalStrategy(
     async function(username, password, done) {
       try {

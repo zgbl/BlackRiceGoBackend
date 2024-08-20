@@ -22,6 +22,8 @@ const app = express();
 
 const allowedOrigins = ['https://zgbl.github.io'];
 
+let isPassportConfigured = false;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
@@ -36,6 +38,15 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
+
+const configurePassportOnce = () => {
+  if (!isPassportConfigured) {
+    console.log('Configuring Passport');
+    configurePassport(passport);
+    isPassportConfigured = true;
+    console.log('Passport configured successfully');
+  }
+};
 
 const initializeApp = async () => {
   try {
@@ -56,7 +67,8 @@ const initializeApp = async () => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    configurePassport(passport);
+    //configurePassport(passport);
+    configurePassportOnce();
 
     app.use('/forum', forumRoutes);
     app.use('/comments', commentRoutes);
@@ -81,5 +93,6 @@ export default async (req, res) => {
     await initializeApp();
     app.initialized = true;
   }
+  configurePassportOnce();
   return app(req, res);
 };
