@@ -1,5 +1,5 @@
 import express from 'express';
-import auth from '../routes/auth.js';
+import authRoutes from '../routes/auth.js';
 import forumRoutes from '../routes/forumRoutes.js';
 import commentRoutes from '../routes/commentRoutes.js';
 import { connectDB } from '../config/database.js';
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 路由设置
-app.use('/auth', auth);
+app.use('/auth', authRoutes);
 app.use('/forum', forumRoutes);
 app.use('/comments', commentRoutes);
 
