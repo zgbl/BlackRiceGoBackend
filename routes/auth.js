@@ -27,6 +27,8 @@ router.post('/login', (req, res, next) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     req.logIn(user, (err) => {
+      console.log("starting login process");
+      console.log("req.logIn(user", user);
       if (err) {
         console.error('Login error:', err);
         return res.status(500).json({ message: 'Error logging in' });
@@ -57,6 +59,9 @@ router.post('/register', async (req, res) => {
   try {
     console.log('req object at register route:', req); // Add this line to inspect `req`
     console.log('req.login function 是什么 (auth.js line 59):', req.login); // This should print the `req.login` function or `undefined`
+    console.log('req.body 是:', req.body);
+    console.log('req.headers 是:', req.headers);
+
     const { username, email, password } = req.body;
     let user = await User.findOne({ $or: [{ email }, { username }] });
     if (user) {
@@ -66,21 +71,21 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    req.login(user, (err) => {
+    req.logIn(user, (err) => {
       if (err) {
         console.error('Auto-login after registration failed:', err);
         return res.status(500).json({ message: 'Registration successful, but auto-login failed' });
       }
-      res.status(201).json({ 
-        message: 'User registered and logged in successfully', 
-        user: { 
-          id: user._id, 
+      res.status(201).json({
+        message: 'User registered and logged in successfully',
+        user: {
+          id: user._id,
           username: user.username,
           email: user.email,
           createdAt: user.createdAt,
           lastLogin: user.lastLogin,
           loginCount: user.loginCount
-        } 
+        }
       });
     });
   } catch (error) {
