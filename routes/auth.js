@@ -70,8 +70,9 @@ router.post('/register', async (req, res) => {
     user = new User({ username, email, password });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
+    console.log("auth.js line 73: User is:", user);
     await user.save();
-    /*req.logIn(user, (err) => {
+    req.logIn(user, (err) => {
       if (err) {
         console.error('Auto-login after registration failed:', err);
         return res.status(500).json({ message: 'Registration successful, but auto-login failed' });
@@ -87,7 +88,7 @@ router.post('/register', async (req, res) => {
           loginCount: user.loginCount
         }
       });
-    }); */
+    }); 
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ message: 'Server error' });
