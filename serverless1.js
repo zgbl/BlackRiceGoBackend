@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const allowedOrigins = ['https://zgbl.github.io','http://weiqi.blackrice.pro'];
+const allowedOrigins = ['http://weiqi.blackrice.pro'];
 
 let isPassportConfigured = false;
 
