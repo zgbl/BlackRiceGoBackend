@@ -34,20 +34,34 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
+  let sgfContent = null;
   try {
     const { title, content } = req.body;
-    const sgfFile = req.file;
+    const userID = req.user.id;  // 获取当前登录用户的ID   8/10
+    const author = req.user.username;  // 获取当前登录用户的username   8/10
 
     // 创建新的帖子
+    if (req.file && req.file.path.endsWith('.sgf')) {
+      try {
+        sgfContent = await fs.readFile(req.file.path, 'utf8');
+        await fs.unlink(req.file.path);
+      } catch (fileError) {
+        console.error('Error reading SGF file:', fileError);
+      }
+    }
+    
     const newPost = new Post({
       title,
       content,
-      sgfData: sgfFile ? sgfFile.buffer : null,
-      // 其他需要的字段...
+      userID,     //增加userID 字段 8/10  要在上面先获取
+      author,
+      sgfContent, 
+      createdAt: new Date()
     });
-
     // 保存帖子到数据库
-    await newPost.save();
+    //await newPost.save();
+    const savedPost = await newPost.save();
+    console.log('New post created:', savedPost);
 
     res.status(201).json({ message: "帖子创建成功", post: newPost });
   } catch (error) {
