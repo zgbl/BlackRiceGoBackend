@@ -36,25 +36,23 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
-    let sgfContent = '';
+    const sgfFile = req.file;
 
-    if (req.file) {
-      // 如果上传了文件，读取文件内容
-      sgfContent = req.file.buffer.toString('utf-8');
-    }
-
+    // 创建新的帖子
     const newPost = new Post({
       title,
       content,
-      sgfContent,
-      // 其他需要的字段
+      sgfData: sgfFile ? sgfFile.buffer : null,
+      // 其他需要的字段...
     });
 
-    const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
+    // 保存帖子到数据库
+    await newPost.save();
+
+    res.status(201).json({ message: "帖子创建成功", post: newPost });
   } catch (error) {
-    console.error('Error creating post:', error);
-    res.status(500).json({ message: '创建帖子时发生错误', error: error.message });
+    console.error('创建帖子时出错:', error);
+    res.status(500).json({ message: '服务器错误', error: error.message });
   }
 };
 
