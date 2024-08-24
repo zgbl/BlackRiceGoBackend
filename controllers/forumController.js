@@ -36,10 +36,12 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   let sgfContent = null;
   console.log("req is", req);
+  console.log("req.userID is", req.body.userID);
+  console.log("req auther is", req.body.author);
   try {
     const { title, content } = req.body;
-    const userID = req.user.id;  // 获取当前登录用户的ID   8/10
-    const author = req.user.username;  // 获取当前登录用户的username   8/10
+    const userID = req.body.userID;  // 获取当前登录用户的ID   8/10
+    const author = req.body.auther;  // 获取当前登录用户的username   8/10
 
     // 创建新的帖子
     if (req.file && req.file.path.endsWith('.sgf')) {
