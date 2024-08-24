@@ -35,7 +35,7 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   let sgfContent = null;
-  console.log("req is", req);
+  console.log("req.body is", req.body);
   console.log("req.userID is", req.body.userID);
   console.log("req auther is", req.body.author);
   try {
@@ -43,16 +43,17 @@ export const createPost = async (req, res) => {
     const userID = req.body.userID;  // 获取当前登录用户的ID   8/10
     const author = req.body.auther;  // 获取当前登录用户的username   8/10
 
-    // 创建新的帖子
-    if (req.file && req.file.path.endsWith('.sgf')) {
-      try {
-        sgfContent = await fs.readFile(req.file.path, 'utf8');
-        await fs.unlink(req.file.path);
-      } catch (fileError) {
-        console.error('Error reading SGF file:', fileError);
+    // Check if a file is uploaded and if it is an SGF file
+    if (req.file) {
+      if (req.file.mimetype === 'application/x-go-sgf' || req.file.originalname.endsWith('.sgf')) {
+        sgfContent = req.file.buffer.toString('utf8'); // Convert buffer to string
+      } else {
+        console.error('Uploaded file is not an SGF file.');
+        // Optionally handle the case where the file is not an SGF
       }
     }
     
+    // 创建一个新的帖子
     const newPost = new Post({
       title,
       content,
