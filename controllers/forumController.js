@@ -35,8 +35,14 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
-    const { title, content, sgfContent } = req.body;
-    
+    const { title, content } = req.body;
+    let sgfContent = '';
+
+    if (req.file) {
+      // 如果上传了文件，读取文件内容
+      sgfContent = req.file.buffer.toString('utf-8');
+    }
+
     const newPost = new Post({
       title,
       content,
