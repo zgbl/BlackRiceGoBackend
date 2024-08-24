@@ -35,6 +35,7 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   let sgfContent = null;
+  console.log("req is", req);
   try {
     const { title, content } = req.body;
     const userID = req.user.id;  // 获取当前登录用户的ID   8/10
