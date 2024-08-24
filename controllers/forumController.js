@@ -67,7 +67,7 @@ export const createPost = async (req, res) => {
     const savedPost = await newPost.save();
     console.log('New post created:', savedPost);
 
-    res.status(201).json({ message: "帖子创建成功", post: newPost });
+    res.status(201).json({ success: true, post: savedPost });
   } catch (error) {
     console.error('创建帖子时出错:', error);
     res.status(500).json({ message: '服务器错误', error: error.message });
