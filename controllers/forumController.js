@@ -41,7 +41,7 @@ export const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
     const userID = req.body.userID;  // 获取当前登录用户的ID   8/10
-    const author = req.body.auther;  // 获取当前登录用户的username   8/10
+    const author = req.body.author;  // 获取当前登录用户的username   8/10
 
     // Check if a file is uploaded and if it is an SGF file
     if (req.file) {
