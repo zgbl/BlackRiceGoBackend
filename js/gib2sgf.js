@@ -2,9 +2,10 @@ export async function GIBtoSGF(gibContent) {
     let info = {};
     let moves = '';
     let Hcap = 0;
-  
+    console.log('gibContent is', gibContent);
     // Split the GIB content into lines for processing
     const lines = gibContent.split(/\r?\n/);
+    console.log('lines is', lines);
   
     for (const line of lines) {
         const trimmedLine = line.trim();
@@ -50,6 +51,8 @@ export async function GIBtoSGF(gibContent) {
     const br = info.bp ? info.br || '' : '';
     const res = info.res || '';
     const date = info.date || '';
+    console.log('info is', info);
+    console.log('gib2sgf.js line 55, wp is', wp);
   
     let sgfContent = `(;GM[1]FF[4]CA[UTF-8]AP[gokifu.com]SO[http://gokifu.com]ST[1]
   SZ[19]PW[${wp}]WR[${wr}]PB[${bp}]BR[${br}]RE[${res}]DT[${date}]
