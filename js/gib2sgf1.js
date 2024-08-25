@@ -17,17 +17,17 @@ export async function GIBtoSGF1(gibContent) {
 
     for (let line of lines) {
         line = line.trim();
-        if (line.startsWith("GAMEBLACKNICK=")) {
+        if (line.startsWith("\[GAMEBLACKNAME=")) {
             blackPlayer = line.split("=")[1];
-        } else if (line.startsWith("GAMEWHITENICK=")) {
+        } else if (line.startsWith("\[GAMEWHITENAME")) {
             whitePlayer = line.split("=")[1];
-        } else if (line.startsWith("GAMEBLACKLEVEL=")) {
+        } else if (line.startsWith("\[GAMEBLACKLEVEL=")) {
             blackRank = line.split("=")[1];
-        } else if (line.startsWith("GAMEWHITELEVEL=")) {
+        } else if (line.startsWith("\[GAMEWHITELEVEL=")) {
             whiteRank = line.split("=")[1];
-        } else if (line.startsWith("GAMERESULT=")) {
+        } else if (line.startsWith("\[GAMERESULT=")) {
             result = line.split("=")[1];
-        } else if (line.startsWith("GAMEDATE=")) {
+        } else if (line.startsWith("\[GAMEDATE=")) {
             date = line.split("=")[1].replace(/[^0-9]/g, "-");
         } else if (line.startsWith("INI")) {
             handicap = parseInt(line.split(" ")[3], 10);
