@@ -1,7 +1,7 @@
 import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
 import fs from 'fs/promises';
-import GIBtoSGF from '../js/gib2sgf.js';
+import GIBtoSGF1 from '../js/gib2sgf.js';
 
 export const getPosts = async (req, res) => {
   try {
@@ -65,7 +65,7 @@ export const createPost = async (req, res) => {
       } else if (fileType === 'application/octet-stream' || fileName.endsWith('.gib')) {
         // Handle GIB file
         const gibContent = req.file.buffer.toString('utf8'); // Convert buffer to string
-        sgfContent = await GIBtoSGF(gibContent); // Convert GIB to SGF using your conversion function
+        sgfContent = await GIBtoSGF1(gibContent); // Convert GIB to SGF using your conversion function
       } else {
         console.error('Uploaded file is not an SGF or GIB file.');
         // Optionally handle the case where the file is not an SGF or GIB
