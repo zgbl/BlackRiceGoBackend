@@ -79,3 +79,5 @@ export async function GIBtoSGF(gibContent) {
   
     return sgfContent;
   }
+
+  export default GIBtoSGF; // This exports the function as the default export
