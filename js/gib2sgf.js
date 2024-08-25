@@ -2,10 +2,10 @@ export async function GIBtoSGF(gibContent) {
     let info = {};
     let moves = '';
     let Hcap = 0;
-    console.log('gibContent is', gibContent);
+   //console.log('gibContent is', gibContent);
     // Split the GIB content into lines for processing
     const lines = gibContent.split(/\r?\n/);
-    console.log('lines is', lines);
+    //console.log('lines is', lines);
   
     for (const line of lines) {
         const trimmedLine = line.trim();
