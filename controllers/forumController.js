@@ -1,7 +1,7 @@
 import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
 import fs from 'fs/promises';
-import GIBtoSGF1 from '../js/gib2sgf.js';
+import GIBtoSGF1 from '../js/gib2sgf1.js';
 
 export const getPosts = async (req, res) => {
   try {
