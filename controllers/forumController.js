@@ -65,7 +65,7 @@ export const createPost = async (req, res) => {
       } else if (fileType === 'application/octet-stream' || fileName.endsWith('.gib')) {
         // Handle GIB file
         const gibContent = req.file.buffer.toString('utf8'); // Convert buffer to string
-        sgfContent = GIBtoSGF(gibContent); // Convert GIB to SGF using your conversion function
+        sgfContent = await GIBtoSGF(gibContent); // Convert GIB to SGF using your conversion function
       } else {
         console.error('Uploaded file is not an SGF or GIB file.');
         // Optionally handle the case where the file is not an SGF or GIB
