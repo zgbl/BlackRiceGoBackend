@@ -17,6 +17,7 @@ export async function GIBtoSGF1(gibContent) {
 
     for (let line of lines) {
         line = line.trim();
+        console.log("line is", line);
         if (line.startsWith("\[GAMEBLACKNAME=")) {
             blackPlayer = line.split("=")[1];
         } else if (line.startsWith("\[GAMEWHITENAME")) {
@@ -41,6 +42,16 @@ export async function GIBtoSGF1(gibContent) {
             moves += `;${color}[${x}${y}]`;
         }
     }
+
+    // Log variables before constructing SGF
+    console.log("blackPlayer:", blackPlayer);
+    console.log("whitePlayer:", whitePlayer);
+    console.log("blackRank:", blackRank);
+    console.log("whiteRank:", whiteRank);
+    console.log("result:", result);
+    console.log("date:", date);
+    console.log("handicap:", handicap);
+    console.log("moves:", moves);
 
     // Construct SGF
     let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]RE[${result}]DT[${date}]`;
