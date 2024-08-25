@@ -8,7 +8,9 @@ export async function GIBtoSGF(gibContent) {
     //console.log('lines is', lines);
   
     for (const line of lines) {
+        console.log('line is', line);
         const trimmedLine = line.trim();
+        console.log('trimmedLine is', trimmedLine);
   
         if (trimmedLine.startsWith('\\HS')) {
             continue; // Header line, skip it
