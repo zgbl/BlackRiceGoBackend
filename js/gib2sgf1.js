@@ -21,10 +21,12 @@ export async function GIBtoSGF1(gibContent) {
             blackPlayer = line.split("=")[1];
         } else if (line.startsWith("\[GAMEWHITENAME")) {
             whitePlayer = line.split("=")[1];
+            console.log("whitePlayer is", whitePlayer);
         } else if (line.startsWith("\[GAMEBLACKLEVEL=")) {
             blackRank = line.split("=")[1];
         } else if (line.startsWith("\[GAMEWHITELEVEL=")) {
             whiteRank = line.split("=")[1];
+            console.log("whiteRank is", whiteRank);
         } else if (line.startsWith("\[GAMERESULT=")) {
             result = line.split("=")[1];
         } else if (line.startsWith("\[GAMEDATE=")) {
@@ -42,6 +44,7 @@ export async function GIBtoSGF1(gibContent) {
 
     // Construct SGF
     let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]RE[${result}]DT[${date}]`;
+    console.log("see if variable works, blackplayer in SGF should be:", `${blackPlayer}`);
     if (handicap > 0) {
         sgf += `HA[${handicap}]`;
     }
