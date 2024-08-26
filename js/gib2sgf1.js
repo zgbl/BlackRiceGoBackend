@@ -25,6 +25,7 @@ export async function GIBtoSGF1(gibContent) {
         whitePlayer = "",
         blackRank = "",
         whiteRank = "",
+        komi = "",
         result = "",
         date = "";
     let handicap = 0;
@@ -46,6 +47,8 @@ export async function GIBtoSGF1(gibContent) {
           whiteRank = convertRank(
             extractInfo(line, /\[GAMEWHITELEVEL=(.*?)\]/)
           );
+        if (line.includes("[GAMECONDITION="))
+          komi = extractInfo(line, /\[GAMECONDITION=(.*?)\]/);
         if (line.includes("[GAMERESULT="))
           result = extractInfo(line, /\[GAMERESULT=(.*?)\]/);
         if (line.includes("[GAMEDATE="))
@@ -75,7 +78,7 @@ export async function GIBtoSGF1(gibContent) {
     console.log("moves:", moves);
 
     // Construct SGF
-    let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]RE[${result}]DT[${date}]`;
+    let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]KM[${komi}]RE[${result}]DT[${date}]`;
     console.log("see if variable works, blackplayer in SGF should be:", `${blackPlayer}`);
     if (handicap > 0) {
         sgf += `HA[${handicap}]`;
