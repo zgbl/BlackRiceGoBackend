@@ -2,6 +2,7 @@ import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
 import fs from 'fs/promises';
 import GIBtoSGF1 from '../js/gib2sgf1.js';
+import iconv from 'iconv-lite';
 
 export const getPosts = async (req, res) => {
   try {
@@ -44,16 +45,6 @@ export const createPost = async (req, res) => {
     const userID = req.body.userID;  // 获取当前登录用户的ID   8/10
     const author = req.body.author;  // 获取当前登录用户的username   8/10
 
-    // Check if a file is uploaded and if it is an SGF file
-    /*if (req.file) {
-      if (req.file.mimetype === 'application/x-go-sgf' || req.file.originalname.endsWith('.sgf')) {
-        sgfContent = req.file.buffer.toString('utf8'); // Convert buffer to string
-      } else {
-        console.error('Uploaded file is not an SGF file.');
-        // Optionally handle the case where the file is not an SGF
-      }
-    } */
-
     // Check if a file is uploaded and if it is an SGF or GIB file
     if (req.file) {
       const fileType = req.file.mimetype;
@@ -64,14 +55,15 @@ export const createPost = async (req, res) => {
         sgfContent = req.file.buffer.toString('utf8'); // Convert buffer to string
       } else if (fileType === 'application/octet-stream' || fileName.endsWith('.gib')) {
         // Handle GIB file
-        const gibContent = req.file.buffer.toString('utf8'); // Convert buffer to string
+        //const gibContent = req.file.buffer.toString('utf8'); // Convert buffer to string
+        const gibContent = iconv.decode(req.file.buffer, 'gb18030');
+        console.log("Decoded GIB is:", gibContent);
         sgfContent = await GIBtoSGF1(gibContent); // Convert GIB to SGF using your conversion function
       } else {
         console.error('Uploaded file is not an SGF or GIB file.');
         // Optionally handle the case where the file is not an SGF or GIB
       }
     }
-    
     
     // 创建一个新的帖子
     const newPost = new Post({
