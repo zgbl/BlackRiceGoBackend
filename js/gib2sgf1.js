@@ -1,6 +1,17 @@
 export async function GIBtoSGF1(gibContent) {
-    const decoder = new TextDecoder("gb18030");
-    const decodedContent = decoder.decode(gibContent);
+    let decodedContent;
+    //const decoder = new TextDecoder("gb18030");
+    if (gibContent instanceof ArrayBuffer) {
+        // 如果是ArrayBuffer（通常来自文件上传）
+        const decoder = new TextDecoder("gb18030");
+        decodedContent = decoder.decode(gibContent);
+    } else if (typeof gibContent === 'string') {
+        // 如果已经是字符串
+        decodedContent = gibContent;
+    } else {
+        throw new Error("Unsupported input type");
+    }
+    
     //let lines = gibContent.split(/\r?\n/); // Handle both \r\n and \n line endings
     let lines = decodedContent.split("\n");
     
