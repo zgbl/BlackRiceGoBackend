@@ -1,5 +1,6 @@
 export async function GIBtoSGF1(gibContent) {
     let lines = gibContent.split(/\r?\n/); // Handle both \r\n and \n line endings
+    console.log('lines is', lines);
     let header = lines.shift();
 
     if (!header.startsWith("\\HS")) {
@@ -16,8 +17,9 @@ export async function GIBtoSGF1(gibContent) {
     let moves = "";
 
     for (let line of lines) {
+        console.log("line before trim is", line);
         line = line.trim();
-        console.log("line is", line);
+        //console.log("line is", line);
         if (line.startsWith("\[GAMEBLACKNAME=")) {
             blackPlayer = line.split("=")[1];
         } else if (line.startsWith("\[GAMEWHITENAME")) {
