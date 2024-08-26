@@ -12,10 +12,9 @@ export async function GIBtoSGF1(gibContent) {
         throw new Error("Unsupported input type");
     }
     
-    //let lines = gibContent.split(/\r?\n/); // Handle both \r\n and \n line endings
-    let lines = decodedContent.split("\n");
-    
-    console.log('lines is', lines);
+    //let lines = decodedContent.split("\n"); 
+    let lines = gibContent.split("\n"); //试试不decode
+    //console.log('lines is', lines);
     let header = lines.shift();
 
     if (!header.startsWith("\\HS")) {
@@ -32,27 +31,22 @@ export async function GIBtoSGF1(gibContent) {
     let moves = "";
 
     for (let line of lines) {
-        console.log("Before trim, line is:", line);
+        //console.log("Before trim, line is:", line);
         line = line.trim();
-        console.log("After trim, line is:", line);
+        //console.log("After trim, line is:", line);
         if (line.includes("[GAMEBLACKNICK="))
-          //blackPlayer = line.split("=")[1].replace(/\]$/, "");
           blackPlayer = extractInfo(line, /\[GAMEBLACKNICK=(.*?)\]/);
         if (line.includes("[GAMEWHITENICK="))
-          //whitePlayer = line.split("=")[1].replace(/\]$/, "");
           whitePlayer = extractInfo(line, /\[GAMEWHITENICK=(.*?)\]/);
         if (line.includes("[GAMEBLACKLEVEL="))
-          //blackRank = line.split("=")[1].replace(/\]$/, "");
           blackRank = convertRank(
             extractInfo(line, /\[GAMEBLACKLEVEL=(.*?)\]/)
           );
         if (line.includes("GAMEWHITELEVEL="))
-          //whiteRank = line.split("=")[1].replace(/\]$/, "");
           whiteRank = convertRank(
             extractInfo(line, /\[GAMEWHITELEVEL=(.*?)\]/)
           );
         if (line.includes("[GAMERESULT="))
-          //result = extractInfo(line, /\[GAMERESULT=(.*?)\]/);
           result = extractInfo(line, /\[GAMERESULT=(.*?)\]/);
         if (line.includes("[GAMEDATE="))
           date = line.split("=")[1].replace(/[^0-9]/g, "-");
