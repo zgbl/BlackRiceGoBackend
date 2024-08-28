@@ -31,6 +31,8 @@ export async function GIBtoSGF1(gibContent) {
         date = "";
     let handicap = 0;
     let moves = "";
+    let mainTime = "";
+    let byoyomi = "";
 
     for (let line of lines) {
         //console.log("Before trim, line is:", line);
@@ -50,8 +52,28 @@ export async function GIBtoSGF1(gibContent) {
           );
         if (line.includes("[GAMECONDITION="))
           komi = extractInfo(line, /\[GAMECONDITION=(.*?)\]/);
-        if (line.includes("[GAMETIME="))
-          gametime = extractInfo(line, /\[GAMETIME=(.*?)\]/);
+        //if (line.includes("[GAMETIME="))
+        //  gametime = extractInfo(line, /\[GAMETIME=(.*?)\]/);
+
+        if (line.includes("GAMETIME")) {
+          let match = line.match(/限制时间\s(\d+分)/);
+          if (match && match[1]) {
+            mainTime = match[1];
+            console.log("Extracted time:", mainTime); // Output: 10分
+          } else {
+            console.log("Time not found");
+          }
+          console.log("Main time:", mainTime);
+        }
+        if (line.includes("秒")) {
+          let match = line.match(/(.*?)(?=\\])/);
+          if (match && match[1]) {
+            byoyomi = match[1];
+            console.log("byoyomi is:", byoyomi); // Output: 30秒 读秒 3番
+          } else {
+            console.log("Byoyomi:", byoyomi);
+          }
+        }
         if (line.includes("[GAMERESULT="))
           result = extractInfo(line, /\[GAMERESULT=(.*?)\]/);
         if (line.includes("[GAMEDATE="))
@@ -80,9 +102,11 @@ export async function GIBtoSGF1(gibContent) {
     console.log("handicap:", handicap);
     console.log("gametime:", gametime);
     console.log("moves:", moves);
+    console.log("Main time:", mainTime);
+    console.log("Byoyomi:", byoyomi);
 
     // Construct SGF
-    let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]KM[${komi}]TM[${gametime}]RE[${result}]DT[${date}]`;
+    let sgf = `(;GM[1]FF[4]CA[UTF-8]AP[GIBtoSGF]SZ[19]PB[${blackPlayer}]BR[${blackRank}]PW[${whitePlayer}]WR[${whiteRank}]KM[${komi}]RE[${result}]TM[${mainTime}]OT[${byoyomi}]DT[${date}]`;
     console.log("see if variable works, blackplayer in SGF should be:", `${blackPlayer}`);
     if (handicap > 0) {
         sgf += `HA[${handicap}]`;
