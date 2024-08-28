@@ -83,7 +83,7 @@ const startServer = async () => {
     // Socket.IO setup
     const io = new SocketIOServer(server, {
       cors: {
-        origin: ["https://*.blackrice.pro", "http://localhost:8090", "http://192.168.0.152:8090"],
+        origin: ["https://*.blackrice.pro", "http://*.blackrice.pro"],
         methods: ["GET", "POST"],
         credentials: true
       }
